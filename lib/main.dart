@@ -3,6 +3,7 @@ import 'package:flutter95/flutter95.dart';
 import 'package:socially/Home.dart';
 import 'package:socially/Login.dart';
 import 'package:socially/Profile.dart';
+import 'package:socially/chatScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Profile(),
+      home: Scaffold(resizeToAvoidBottomInset: true,body: ChatScreen()),
     );
   }
 }
