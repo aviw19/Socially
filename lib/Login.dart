@@ -6,6 +6,9 @@ import 'package:socially/Home.dart';
 import 'package:socially/SignUp.dart';
 import 'package:socially/masterDetails.dart';
 
+import 'package:socially/chatScreen.dart';
+
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -15,7 +18,7 @@ final em = TextEditingController();
 final pwd = TextEditingController();
 String _email;
 String _password;
-String authError=null;
+String authError;
 bool errorTextPresentEmail = false;
 bool errorTextPresentPassword = false;
 String errorTextEmail;
@@ -58,7 +61,7 @@ class _LoginState extends State<Login> {
                   Container(
                       margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                       child: TextField95(
-                        obscuretext: false,
+                      //  obscuretext: false,
                         controller: em,
                       )),
                   Container(
@@ -70,7 +73,7 @@ class _LoginState extends State<Login> {
                   Container(
                       margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                       child: TextField95(
-                        obscuretext: true,
+                   //     obscuretext: true,
                         controller: pwd,
                       )),
                   SizedBox(
@@ -98,6 +101,7 @@ class _LoginState extends State<Login> {
                             {
                               result = await auth.signInWithEmailAndPassword(
                                   email: _email, password: _password);
+                               
                             }
                             on PlatformException catch (e) {
                               switch (e.code) {

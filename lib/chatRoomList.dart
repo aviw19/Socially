@@ -12,45 +12,47 @@ class _ChatRoomListState extends State<ChatRoomList> {
   Firestore firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
-    return Scaffold95(
-        title: "List of Chatrooms",
-        body: Container(
-          child: StreamBuilder(
-              stream: firestore.collection("chats").document().snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData)
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+    return Scaffold(
+          body: Scaffold95( 
+          title: "List of Chatrooms",
+          body: Container(
+            child: StreamBuilder(
+                stream: firestore.collection("chats").snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData)
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
 
-                List<DocumentSnapshot> docs = snapshot.data.documents;
-                List<Widget> channels = docs
-                    .map((doc) => Container(
-                          color: Colors.white,
-                          child: ListTile(
-                            trailing: Button95(
-                              child: Text("JOIN"),
-                              onTap: () {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ChatScreen(
-                                              channel: doc["title"],
-                                            )),
-                                    (Route<dynamic> route) => false);
-                              },
+                  List<DocumentSnapshot> docs = snapshot.data.documents;
+                  List<Widget> channels = docs
+                      .map((doc) => Container(
+                            color: Colors.white,
+                            child: ListTile(
+                              trailing: Button95(
+                                child: Text("JOIN"),
+                                onTap: () {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ChatScreen(
+                                                channel: doc.documentID,
+                                              )),
+                                      (Route<dynamic> route) => false);
+                                },
+                              ),
+                              title: Text(doc.documentID),
                             ),
-                            title: Text(doc["title"]),
-                          ),
-                        ))
-                    .toList();
+                          ))
+                      .toList();
 
-                return ListView(
-                  shrinkWrap: true,
-                  children: <Widget>[...channels],
-                );
-              }),
-        ),
-        canPop: true);
+                  return ListView(
+                    shrinkWrap: true,
+                    children: <Widget>[...channels],
+                  );
+                }),
+          ),
+          canPop: true),
+    );
   }
 }

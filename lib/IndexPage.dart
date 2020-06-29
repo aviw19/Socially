@@ -24,9 +24,18 @@ class _IndexPageState extends State<IndexPage> {
         title: "VIDEOCHAT",
         canPop: true,
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.3,
+            ),
             Container(
+                margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                child: Text("USERNAME",
+                    style: TextStyle(fontFamily: 'Orangekid', fontSize: 24))),
+            Container(
+              margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
               child: TextField95(
                 obscuretext: false,
                 controller: _channelController,
@@ -36,7 +45,7 @@ class _IndexPageState extends State<IndexPage> {
             Column(
               children: [
                 ListTile(
-                  title: Text(ClientRole.Broadcaster.toString()),
+                  title: Text("Join as Member",style: TextStyle(fontSize: 20),),
                   leading: Radio(
                     value: ClientRole.Broadcaster,
                     groupValue: _role,
@@ -48,7 +57,7 @@ class _IndexPageState extends State<IndexPage> {
                   ),
                 ),
                 ListTile(
-                  title: Text(ClientRole.Audience.toString()),
+                  title: Text("Join as audience",style: TextStyle(fontSize: 20),),
                   leading: Radio(
                     value: ClientRole.Audience,
                     groupValue: _role,
@@ -61,25 +70,23 @@ class _IndexPageState extends State<IndexPage> {
                 )
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: RaisedButton(
-                      onPressed: onJoin,
-                      child: Text('Join'),
-                      color: Colors.blueAccent,
-                      textColor: Colors.white,
+             Container(
+                      margin: EdgeInsets.fromLTRB(40, 10, 40, 0),
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.width * 0.12,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                  
+                    child: Button95(
+                      onTap: (){onJoin();},
+                      child:Center(child: Text('Join',style: TextStyle(fontSize: 30)
                     ),
-                  )
+                  )))
                 ],
               ),
-            )
-          ],
-        ),
-      ) ,
-    );
+            ),
+        );
+  
   }
   @override
   void dispose() {
