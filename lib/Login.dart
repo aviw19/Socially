@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
                   Container(
                       margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                       child: TextField95(
-                      //  obscuretext: false,
+                        obscuretext: false,
                         controller: em,
                       )),
                   Container(
@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
                   Container(
                       margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                       child: TextField95(
-                   //     obscuretext: true,
+                        obscuretext: true,
                         controller: pwd,
                       )),
                   SizedBox(
