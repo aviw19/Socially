@@ -55,6 +55,7 @@ print(channel);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+
       child: Scaffold95(
           canPop: true,
           title: "CHATROOM",

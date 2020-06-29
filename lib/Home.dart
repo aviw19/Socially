@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter95/flutter95.dart';
+import 'package:socially/Login.dart';
+import 'package:socially/Profile.dart';
+import 'package:socially/chatScreen.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,10 +12,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Color(0xFF01817F),
 
-      body:SafeArea(
+      body:Builder(
+      builder: (BuildContext context){
+      return SafeArea(
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -30,7 +36,14 @@ class _HomeState extends State<Home> {
                 child: Container(
 
                   margin: EdgeInsets.only(left: 20),
-                  child: Text('CHATROOM',style: TextStyle(fontSize: 20),),
+                  child:GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          //name MemeaTOken
+                          MaterialPageRoute(builder: (context) =>ChatScreen()));
+                    },
+                  child: Text('CHATROOM',style: TextStyle(fontSize: 20),)),
                 )),
             SizedBox(
               height: 40,
@@ -65,8 +78,85 @@ class _HomeState extends State<Home> {
 
                         child: GestureDetector(
                             onTap: () {
-                              _settingModalBottomSheet(context);
-                            },
+                              //_settingModalBottomSheet(context);
+                              Scaffold.of(context).showBottomSheet<void>(
+                              (BuildContext context) {
+                                        return Container(
+                                          height: MediaQuery.of(context).size.height*0.2,
+                                          width: MediaQuery.of(context).size.width*0.4,
+                                          color: Flutter95.background,
+                                          child: Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                Row(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      width:30,
+                                                      height:30,
+
+                                                      child:Image.asset('assets/profile.png')),
+                                                    FlatButton(onPressed: () {
+
+                                                      Navigator.push(
+                                                          context,
+                                                          //name MemeaTOken
+                                                          MaterialPageRoute(builder: (context) =>Profile()));
+                                                    },
+                                                    child: Text('Profie')
+
+                                                    ),
+
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Container(
+                                                        width:30,
+                                                        height:30,
+
+                                                        child:Image.asset('assets/settings.png')),
+                                                    FlatButton(onPressed: () {
+
+                                                      Navigator.pop(context);
+                                                    },
+                                                        child: Text('Settings')
+
+                                                    ),
+
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Container(
+                                                        width:30,
+                                                        height:30,
+
+                                                        child:Image.asset('assets/power.png')),
+                                                    FlatButton(onPressed: () {
+
+                                                      Navigator.push(
+                                                          context,
+                                                          //name MemeaTOken
+                                                          MaterialPageRoute(builder: (context) =>Login()));
+                                                    },
+                                                        child: Text('Logout')
+
+                                                    ),
+
+                                                  ],
+                                                ),
+
+
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
                           child: Image.asset('assets/flutterLogo.png'),
 
                             )))),
@@ -74,8 +164,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
             )]),
-        ),
-      );
+      );},));
 
   }
 
@@ -84,11 +173,11 @@ class _HomeState extends State<Home> {
       context: context, position: RelativeRect.fromLTRB(0.0, 1000.0, 1000.0, 1000.0),
     items: <PopupMenuItem<String>>[
     const PopupMenuItem<String>(
-    child: Text('test1'), value: 'test1'),
+    child: Text('Profile'), value: 'test1'),
     const PopupMenuItem<String>(
     child: Text('test2'), value: 'test2'),
     ], elevation: 0,
     color: Flutter95.background);
   }
-  
+
 }

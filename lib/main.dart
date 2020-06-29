@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter95/flutter95.dart';
 import 'package:socially/Home.dart';
+import 'package:socially/IndexPage.dart';
 import 'package:socially/Login.dart';
 import 'package:socially/Profile.dart';
 
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
 
-      home: SignUp()
+      home: IndexPage(),
     );
   }
 }

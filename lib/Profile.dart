@@ -1,12 +1,47 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter95/flutter95.dart';
+import 'package:socially/Login.dart';
+import 'package:socially/masterDetails.dart';
 
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
 }
-
+String name =" ";
+String uname= " ";
+String displayname=" ";
+String dob = " ";
+String email = " ";
 class _ProfileState extends State<Profile> {
+  Future<void> getData() async{
+
+    print(masterDetails.firebaseid);
+
+
+      var databasereference = Firestore.instance.collection("users");
+      var document=await databasereference.document(masterDetails.firebaseid);
+      document.get().then((value) {
+        setState(() {
+          print(value.data);
+          name=value.data["name"].toString();
+          uname=value.data["username"].toString();
+          displayname=value.data["name"];
+          dob=value.data["dateofbirthe"];
+          email=value.data["email"];
+        });
+
+
+
+      });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +89,7 @@ class _ProfileState extends State<Profile> {
                             child: Container(
                                 margin: EdgeInsets.all(5),
                                 child: Text(
-                                  "AVI WADHWA",
+                                  name,
                                   style: TextStyle(fontSize: 18),
                                 ))),
                       ),
@@ -73,7 +108,7 @@ class _ProfileState extends State<Profile> {
                             child: Container(
                                 margin: EdgeInsets.all(5),
                                 child: Text(
-                                  "AVIW19",
+                                  uname,
                                   style: TextStyle(fontSize: 18),
                                 ))),
                       ),
@@ -81,7 +116,7 @@ class _ProfileState extends State<Profile> {
                       Container(
                           margin: EdgeInsets.only(left: 10),
                           child: Text(
-                            'DISPLAY NAME',
+                            'DATE OF BIRTH',
                             style: TextStyle(fontSize: 18),
                           )),
                       Container(
@@ -92,7 +127,7 @@ class _ProfileState extends State<Profile> {
                             child: Container(
                                 margin: EdgeInsets.all(5),
                                 child: Text(
-                                  "AVIW19",
+                                  dob,
                                   style: TextStyle(fontSize: 18),
                                 ))),
                       ),
@@ -113,7 +148,7 @@ class _ProfileState extends State<Profile> {
                             child: Container(
                                 margin: EdgeInsets.all(5),
                                 child: Text(
-                                  "EXAMPLE@EXAMPLE.com",
+                                  email,
                                   style: TextStyle(fontSize: 18),
                                 ))),
                       ),

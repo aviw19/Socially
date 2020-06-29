@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter95/flutter95.dart';
 import 'package:socially/Home.dart';
 import 'package:socially/SignUp.dart';
+import 'package:socially/masterDetails.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -120,6 +121,8 @@ class _LoginState extends State<Login> {
                             print(authError);
                             if(authError==null)
                             {
+                              fbuser=result.user;
+                              masterDetails.firebaseid=fbuser.uid;
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   //name MemeaTOken

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter95/flutter95.dart';
 import 'package:socially/Home.dart';
+import 'package:socially/masterDetails.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -151,6 +152,7 @@ class _SignUpState extends State<SignUp> {
                       _name=name.text.trim();
                       _dateofbirth=dob.text.trim();
                       _email=em.text.trim();
+                      masterDetails.firebaseid=fbuser.uid;
                       await databaseReference.collection("users")
                           .document(fbuser.uid)
                           .setData({

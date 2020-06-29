@@ -34,6 +34,8 @@ dependencies:
   firebase_auth: ^0.16.1
   popup_menu: ^1.0.5
   cloud_firestore: ^0.13.7
+  agora_rtc_engine: ^1.0.13
+  permission_handler: ^3.0.0
 
 dev_dependencies:
   flutter_test:
