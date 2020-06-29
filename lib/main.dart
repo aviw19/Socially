@@ -7,6 +7,7 @@ import 'package:socially/Profile.dart';
 import 'package:socially/chatScreen.dart';
 
 import 'package:socially/SignUp.dart';
+import 'package:socially/createChatRoom.dart';
 
 
 void main() {
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
 
-      home: SignUp()
+      home:Login()
     );
   }
 }

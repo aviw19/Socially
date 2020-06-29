@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter95/flutter95.dart';
+import 'package:socially/chatScreen.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -18,13 +19,18 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
             ),
-            Align(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  width: MediaQuery.of(context).size.width*0.15,
-                  margin: EdgeInsets.only(left: 20),
-                  child: Image.asset('assets/chatroom.png'),
-                )),
+            GestureDetector(
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatScreen(),));
+              },
+                          child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width*0.15,
+                    margin: EdgeInsets.only(left: 20),
+                    child: Image.asset('assets/chatroom.png'),
+                  )),
+            ),
             Align(
                 alignment: Alignment.topLeft,
                 child: Container(

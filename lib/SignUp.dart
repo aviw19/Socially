@@ -45,7 +45,7 @@ class _SignUpState extends State<SignUp> {
             Container(
                 margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                 child: TextField95(
-                  obscuretext: false,
+                  // obscuretext: false,
                   controller: name,
                 )),
             Container(
@@ -55,7 +55,7 @@ class _SignUpState extends State<SignUp> {
             Container(
                 margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                 child: TextField95(
-                  obscuretext: false,
+               //   obscuretext: false,
                   controller: uname,
                 )),
             Container(
@@ -65,7 +65,7 @@ class _SignUpState extends State<SignUp> {
             Container(
                 margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                 child: TextField95(
-                  obscuretext: false,
+                //  obscuretext: false,
                   controller: dob,
                 )),
             Container(
@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp> {
             Container(
                 margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                 child: TextField95(
-                  obscuretext: false,
+               //   obscuretext: false,
                   controller: em,
                 )),
             Container(
@@ -87,7 +87,7 @@ class _SignUpState extends State<SignUp> {
             Container(
                 margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                 child: TextField95(
-                  obscuretext: true,
+              //    obscuretext: true,
                   controller: pwd,
                 )),
             Container(
@@ -99,7 +99,7 @@ class _SignUpState extends State<SignUp> {
             Container(
                 margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                 child: TextField95(
-                  obscuretext: true,
+               //   obscuretext: true,
                   //controller: pwd,
                 )),
             SizedBox(

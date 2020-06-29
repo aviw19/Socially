@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   
+  fluttertoast: ^4.0.1
 
 
 
