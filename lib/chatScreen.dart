@@ -5,7 +5,7 @@ import 'package:flutter95/flutter95.dart';
 import 'package:socially/chatRoomList.dart';
 
 class ChatScreen extends StatefulWidget {
-  String channel = "general";
+  String channel;
   ChatScreen({this.channel});
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -14,19 +14,22 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   TextEditingController messageController;
   ScrollController scrollController;
-  String channel;
+  String channel = "general";
   final Firestore _firestore = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Future<void> callback() async {
     if (messageController.text.length > 0) {
-      await _firestore
+      //print("ayush");
+print(channel);
+      DocumentReference reference = await _firestore
           .collection("chats")
           .document(channel)
           .collection("messages")
           .add({
         'text': messageController.text,
-        'from': (await _auth.currentUser()).displayName,
+        'from': "ayush"
       });
+      print(reference.documentID);
       messageController.clear();
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,
@@ -38,7 +41,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    channel = widget.channel;
+    if(widget.channel==null){
+      channel ="general";
+    }
+    else{
+      channel = widget.channel;
+    }
     messageController = new TextEditingController();
     scrollController = ScrollController();
     super.initState();
@@ -96,36 +104,50 @@ class _ChatScreenState extends State<ChatScreen> {
                     height: 5,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.65,
-                    color: Colors.white,
-                    child: StreamBuilder(
-                      stream: _firestore
-                          .collection("chats")
-                          .document(channel)
-                          .collection("messages")
-                          .document()
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData)
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
+                      height: MediaQuery.of(context).size.height * 0.65,
+                      color: Colors.white,
+                      child: Column(
+                        children: <Widget>[
+                          Elevation95(
+                              child: Container(
+                                  height: 30,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Text(
+                                    widget.channel != null
+                                        ? channel
+                                        : "general",
+                                    style: TextStyle(fontSize: 28),
+                                  ))),
+                          StreamBuilder(
+                            stream: _firestore
+                                .collection("chats")
+                                .document(channel)
+                                .collection("messages")
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData)
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
 
-                        List<DocumentSnapshot> docs = snapshot.data.documents;
-                        List<Widget> messages = docs
-                            .map((doc) => ChatItem(
-                                  message: doc.data['text'],
-                                  name: doc.data['from'],
-                                ))
-                            .toList();
-                        return ListView(
-                          controller: scrollController,
-                          children: <Widget>[...messages],
-                          shrinkWrap: true,
-                        );
-                      },
-                    ),
-                  ),
+                              List<DocumentSnapshot> docs =
+                                  snapshot.data.documents;
+                              print(docs.length);
+                              List<Widget> messages = docs
+                                  .map((doc) => ChatItem(
+                                        message: doc.data['text'],
+                                        name: doc.data['from'],
+                                      ))
+                                  .toList();
+                              return ListView(
+                                controller: scrollController,
+                                children: <Widget>[...messages],
+                                shrinkWrap: true,
+                              );
+                            },
+                          ),
+                        ],
+                      )),
                   SizedBox(
                     height: 10,
                   ),
@@ -139,6 +161,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           height: 100,
                           child: Material(
                               child: TextField(
+                                controller: messageController,
                             style: TextStyle(fontSize: 20),
                             maxLines: 20,
                             decoration: InputDecoration(
@@ -160,8 +183,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           child: Column(
                             children: <Widget>[
                               Button95(
-                                onTap: () async {
-                                  await callback();
+                                onTap: ()  {
+                                  print("ayush");
+                                  callback();
                                 },
                                 height: 40,
                                 child: Center(
@@ -214,22 +238,19 @@ class ChatItem extends StatefulWidget {
 class _ChatItemState extends State<ChatItem> {
   @override
   Widget build(BuildContext context) {
-    return Elevation95(
-      type: Elevation95Type.up,
-      child: ListTile(
-        leading: Icon(
-          Icons.person_outline,
-          color: Colors.black,
-          size: 25,
-        ),
-        title: Text(
-          "Name",
-          style: TextStyle(fontSize: 24),
-        ),
-        subtitle: Text(
-          "Hello everyone",
-          style: TextStyle(fontSize: 18),
-        ),
+    return ListTile(
+      leading: Icon(
+        Icons.person_outline,
+        color: Colors.black,
+        size: 25,
+      ),
+      title: Text(
+        widget.name,
+        style: TextStyle(fontSize: 24),
+      ),
+      subtitle: Text(
+        widget.message,
+        style: TextStyle(fontSize: 18),
       ),
     );
   }
