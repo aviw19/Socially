@@ -50,7 +50,7 @@ class _CreateChatRoomState extends State<CreateChatRoom> {
                     margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                     child: TextField95(
                       controller: nameController,
-                      // obscuretext: false,
+                       obscuretext: false,
                       //  controller: name,
                     )),
                 Container(
@@ -62,7 +62,7 @@ class _CreateChatRoomState extends State<CreateChatRoom> {
                     margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                     child: TextField95(
                       controller: purposeController,
-                      //   obscuretext: false,
+                         obscuretext: false,
                       //  controller: uname,
                     )),
                 SizedBox(

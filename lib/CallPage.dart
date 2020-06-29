@@ -307,6 +307,7 @@ class _CallPageState extends State<CallPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text('CONNECTED'),
       ),
       backgroundColor: Colors.black,

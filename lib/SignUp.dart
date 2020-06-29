@@ -76,7 +76,8 @@ class _SignUpState extends State<SignUp> {
             Container(
                 margin: EdgeInsets.fromLTRB(40, 0, 40, 20),
                 child: TextField95(
-                  obscuretext: false,
+
+                 obscuretext: false,
                   controller: em,
                 )),
             Container(

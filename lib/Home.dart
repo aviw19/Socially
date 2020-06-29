@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter95/flutter95.dart';
+import 'package:socially/IndexPage.dart';
 import 'package:socially/Login.dart';
 import 'package:socially/Profile.dart';
 
@@ -56,11 +57,18 @@ class _HomeState extends State<Home> {
             ),
             Align(
                 alignment: Alignment.topLeft,
+                child:GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        //name MemeaTOken
+                        MaterialPageRoute(builder: (context) =>IndexPage()));
+                  },
                 child: Container(
                   margin: EdgeInsets.only(left: 20),
                   width: MediaQuery.of(context).size.width*0.15,
                   child: Image.asset('assets/videocall.png'),
-                )),
+                ))),
             Align(
                 alignment: Alignment.topLeft,
                 child: Container(

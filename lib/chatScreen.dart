@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter95/flutter95.dart';
 import 'package:socially/SignUp.dart';
 import 'package:socially/chatRoomList.dart';
+import 'package:socially/createChatRoom.dart';
 
 class ChatScreen extends StatefulWidget {
   String channel;
+
   ChatScreen({this.channel});
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -18,6 +21,7 @@ class _ChatScreenState extends State<ChatScreen> {
   String channel = "general";
   final Firestore _firestore = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   Future<void> callback() async {
     QuerySnapshot querySnapshot = await _firestore
         .collection("users")
@@ -76,7 +80,13 @@ class _ChatScreenState extends State<ChatScreen> {
                             Elevation95(
                               type: Elevation95Type.down,
                               child: Button95(
-                                onTap: null,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CreateChatRoom()),
+                                  );
+                                },
                                 child: Text(
                                   "Create Chatroom",
                                   style: TextStyle(color: Colors.black),
@@ -249,7 +259,9 @@ class _ChatScreenState extends State<ChatScreen> {
 class ChatItem extends StatefulWidget {
   String name;
   String message;
+
   ChatItem({@required this.message, @required this.name});
+
   @override
   _ChatItemState createState() => _ChatItemState();
 }
