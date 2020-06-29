@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter95/flutter95.dart';
+import 'package:socially/chatRoomList.dart';
 
 class ChatScreen extends StatefulWidget {
+  String channel = "general";
+  ChatScreen({this.channel});
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -11,11 +14,16 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   TextEditingController messageController;
   ScrollController scrollController;
+  String channel;
   final Firestore _firestore = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Future<void> callback() async {
     if (messageController.text.length > 0) {
-      await _firestore.collection('chats').add({
+      await _firestore
+          .collection("chats")
+          .document(channel)
+          .collection("messages")
+          .add({
         'text': messageController.text,
         'from': (await _auth.currentUser()).displayName,
       });
@@ -30,6 +38,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
+    channel = widget.channel;
     messageController = new TextEditingController();
     scrollController = ScrollController();
     super.initState();
@@ -58,7 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             child: Button95(
                               onTap: null,
                               child: Text(
-                                "View People Online",
+                                "Create Chatroom",
                                 style: TextStyle(color: Colors.black),
                               ),
                             ),
@@ -69,9 +78,12 @@ class _ChatScreenState extends State<ChatScreen> {
                           Elevation95(
                             type: Elevation95Type.down,
                             child: Button95(
-                              onTap: null,
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => ChatRoomList()));
+                              },
                               child: Text(
-                                "Chat Settings",
+                                "View Available Chatrooms",
                                 style: TextStyle(color: Colors.black),
                               ),
                             ),
@@ -87,7 +99,12 @@ class _ChatScreenState extends State<ChatScreen> {
                     height: MediaQuery.of(context).size.height * 0.65,
                     color: Colors.white,
                     child: StreamBuilder(
-                      stream: _firestore.collection("chats").snapshots(),
+                      stream: _firestore
+                          .collection("chats")
+                          .document(channel)
+                          .collection("messages")
+                          .document()
+                          .snapshots(),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData)
                           return Center(
@@ -143,7 +160,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           child: Column(
                             children: <Widget>[
                               Button95(
-                                onTap: ()async{
+                                onTap: () async {
                                   await callback();
                                 },
                                 height: 40,
