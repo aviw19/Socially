@@ -11,7 +11,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF01817F),
-      body: SafeArea(
+
+      body:SafeArea(
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -57,42 +58,37 @@ class _HomeState extends State<Home> {
                     child: Align(
 
                         alignment: Alignment.topLeft,
+
                       child:Container(
                         width: MediaQuery.of(context).size.width *0.14,
                         child:Elevation95(
-                        child: GestureDetector(
-                            onTap: () {},
-                            child: Container(
 
-                              child: Image.asset('assets/flutterLogo.png'),
+                        child: GestureDetector(
+                            onTap: () {
+                              _settingModalBottomSheet(context);
+                            },
+                          child: Image.asset('assets/flutterLogo.png'),
+
                             )))),
                   ),
                 ),
               ),
-            )),
-          ],
+            )]),
         ),
-      ),
-    );
+      );
+
   }
 
-  Menu95 _buildMenu() {
-    return Menu95(
-      items: [
-        MenuItem95(
-          value: 1,
-          label: 'New',
-        ),
-        MenuItem95(
-          value: 2,
-          label: 'Open',
-        ),
-        MenuItem95(
-          value: 3,
-          label: 'Exit',
-        ),
-      ],
-      onItemSelected: (item) {},
-    );
+  void _settingModalBottomSheet(context){
+    showMenu(
+      context: context, position: RelativeRect.fromLTRB(0.0, 1000.0, 1000.0, 1000.0),
+    items: <PopupMenuItem<String>>[
+    const PopupMenuItem<String>(
+    child: Text('test1'), value: 'test1'),
+    const PopupMenuItem<String>(
+    child: Text('test2'), value: 'test2'),
+    ], elevation: 0,
+    color: Flutter95.background);
   }
+  
 }
