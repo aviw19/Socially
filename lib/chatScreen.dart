@@ -5,6 +5,7 @@ import 'package:flutter95/flutter95.dart';
 import 'package:socially/SignUp.dart';
 import 'package:socially/chatRoomList.dart';
 import 'package:socially/createChatRoom.dart';
+import 'package:translator/translator.dart';
 
 class ChatScreen extends StatefulWidget {
   String channel;
@@ -21,6 +22,12 @@ class _ChatScreenState extends State<ChatScreen> {
   String channel = "general";
   final Firestore _firestore = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<void> translate(String input) async{
+    final translator = GoogleTranslator();
+    translator.translate(input,to:'pt').then((value){
+      return value;
+    });
+  }
 
   Future<void> callback() async {
     QuerySnapshot querySnapshot = await _firestore
@@ -121,6 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         color: Colors.white,
                         child: Column(
                           children: <Widget>[
+                            Row(children: <Widget>[
                             Elevation95(
                                 child: Container(
                                     height: 30,
@@ -131,6 +139,11 @@ class _ChatScreenState extends State<ChatScreen> {
                                           : "general",
                                       style: TextStyle(fontSize: 28),
                                     ))),
+                            Button95(
+                              onTap: (){},
+                              child: Text('Translate'),
+                            ),
+                            ]),
                             StreamBuilder(
                               stream: _firestore
                                   .collection("chats")
@@ -209,7 +222,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           )
